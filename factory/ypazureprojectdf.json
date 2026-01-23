@@ -1,0 +1,9 @@
+{
+	"name": "ypazureprojectdf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "b51105b0-cecd-4364-adea-29fce0e2f4d5",
+		"tenantId": "b11053d2-e79c-4ea8-be08-c17006ebac82"
+	}
+}
