@@ -5,8 +5,6 @@
 			{
 				"name": "AzureSqlToLake",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "last_cdc",
@@ -43,7 +41,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * from @{pipeline().parameters.Schema}.@{pipeline().parameters.Table} \nwhere @{pipeline().parameters.cdc_col} > '@{activity('last_cdc').output.value[0].cdc}'",
+							"value": "@{concat(\n  'SELECT * FROM ',\n  pipeline().parameters.Schema, '.', pipeline().parameters.Table,\n  ' WHERE ',\n  pipeline().parameters.cdc_col,\n  ' > ''',\n  activity('last_cdc').output.value[0].cdc,\n  ''''\n)}\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -128,8 +126,6 @@
 			{
 				"name": "current",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
