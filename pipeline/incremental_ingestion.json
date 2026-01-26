@@ -43,7 +43,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "select * \nfrom @{pipeline().parameters.Schema}.@{pipeline().parameters.Table} \nwhere @{pipeline().parameters.cdc_col} > \ncast('@{activity('last_cdc').output['value[0]'].cdc}' as datetime)\n\n\n",
+							"value": "select * \nfrom @{pipeline().parameters.Schema}.@{pipeline().parameters.Table} \nwhere @{pipeline().parameters.cdc_col} > \ncast('@{activity('last_cdc').output.firstRow.cdc}' as datetime)\n\n",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -124,7 +124,7 @@
 							"file": "cdc.json"
 						}
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
